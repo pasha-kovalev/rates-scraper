@@ -11,7 +11,6 @@ import (
 const (
 	ratesDateLayout = "2006-01-02"
 	ratesDateFormat = "%04d-%02d-%02d"
-	dbDateLayout    = `"2006-01-02 15:04:05"`
 )
 const (
 	getAllQuery    = "SELECT id, cur_id, rate_date, cur_abbreviation, cur_scale, cur_name, cur_official_rate FROM rates "
