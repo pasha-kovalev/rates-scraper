@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: mysql
+    environment:
+      MYSQL_DATABASE: 'exchange_rates'
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: user
+      MYSQL_PASSWORD: pass
+    ports:
+      - "3306:3306"
+    command: --init-file /docker-entrypoint-initdb.d/init.sql
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    networks:
+      - app-network
+
+  app:
+    restart: always
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: rates_scraper
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mysql
+    environment:
+      DB_USER: user
+      DB_PASSWORD: pass
+      DB_NAME: 'exchange_rates'
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge

@@ -1,0 +1,11 @@
+app:
+  log-level: debug
+  version: v1
+  host:
+  port: 8080
+db:
+  user: user
+  password: pass
+  host: mysql
+  port: 3306
+  name: 'exchange_rates'
